@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+<ui:composition template="WEB-INF/templates/BasicTemplate.xhtml">
+	<ui:define name="title">ABO.Accountant Page.</ui:define>
+	<ui:define name="content">
+		<h:form id="formid">
+			<div>
+
+				<div>
+
+					
+					<p:commandButton value="See All Tickets" action="#{ticketBean.showAll}"  ajax="true" update="panel" />
+					<p:commandButton value="Clear Table" action="#{ticketBean.clearTable}" update="panel"/>
+					<p:commandButton value="Show overdue booking" action="#{ticketBean.showOverdue}" update="panel"/>
+					<p:commandButton value="Back" action="Admin?faces-redirect=true" />
+				</div>
+				<p:panel id="panel">
+					<div style="max-height: 600px;" scrollable="true">
+						<p:dataTable  id="table" var="ticket"
+							value="#{ticketBean.tickets}" stickyHeader="false"
+							  
+							 scrollable="true" scrollHeight="500">
+							<f:facet name="header">Found Tickets  (#{ticketBean.resultsQuantity})</f:facet>
+							
+							<p:column>
+							<f:facet name="header">Ticket Status</f:facet>
+								
+								<h:outputText value="#{ticket.ticketStatus}"/>
+								
+							</p:column>
+							
+							<p:column>
+							<f:facet name="header">Book Date</f:facet>
+								<h:outputText value="#{ticket.bookDate}">
+								<f:convertDateTime pattern="dd-MM-yyyy HH:mm" timeZone="GMT+3"/>
+								</h:outputText>
+							</p:column>
+							
+							<p:column>
+							<f:facet name="header">Sold Date</f:facet>
+								<h:outputText value="#{ticket.soldDate}">
+								<f:convertDateTime pattern="dd-MM-yyyy HH:mm" timeZone="GMT+3"/>
+								</h:outputText>
+								
+							</p:column>
+							
+							<p:column>
+							<f:facet name="header">Amount</f:facet>
+								
+								<h:outputText value="#{ticket.amount}"/>
+								
+							</p:column>
+							 
+							 <p:column>
+							<f:facet name="header">Total Price</f:facet>
+								
+								<h:outputText value="#{ticket.totalPrice}"/>
+								
+							</p:column>
+							 <p:column>
+							<f:facet name="header">Owner Name</f:facet>
+								
+								<h:outputText value="#{ticket.ownerName}"/>
+								
+							</p:column>
+							
+							<p:column>
+							<f:facet name="header">Owner Id</f:facet>
+								<h:outputText value="#{ticket.ownerId}"/>
+								
+							</p:column>
+							
+							<p:column>
+							<f:facet name="header">Flight ID</f:facet>
+								<h:outputText value="#{ticket.flight.flightnumber}"/>
+								
+							</p:column>
+							
+							<p:column>
+							<f:facet name="header">Flight Status</f:facet>
+								<h:outputText value="#{ticket.flight.flightStatus}"/>
+								
+							</p:column>
+							<!-- 
+							
+							<p:column>
+							<f:facet name="header">Departure Time</f:facet>
+								<h:outputText value="#{flight.departureTime}" >
+								  <f:convertDateTime pattern="d MMMM yyyy HH:mm" timeZone="GMT+3" locale="en"/>
+								</h:outputText>
+								
+							</p:column>
+							
+							<p:column>
+							<f:facet name="header">Destination point</f:facet>
+								
+								<h:outputText value="#{flight.destination}"/>
+								
+							</p:column>
+							
+							<p:column>
+							<f:facet name="header">Arrival Time</f:facet>
+								
+								
+								<h:outputText value="#{flight.arrivalTime}">
+								<f:convertDateTime pattern="d MMMM yyyy HH:mm" timeZone="GMT+3" locale="en"/>
+								</h:outputText>
+							</p:column>
+							
+							<p:column>
+							<f:facet name="header">Free seats</f:facet>
+								
+								<h:outputText value="#{flight.freeSeats}"/>
+							
+							</p:column>
+							
+							<p:column width="50px">
+							<f:facet name="header">Price</f:facet>
+								
+								<h:outputText value="#{flight.price}"/>
+								
+							</p:column>
+							<p:column>
+							<f:facet name="header">Status</f:facet>
+								
+								<h:outputText value="#{flight.flightStatus}"/>
+								
+							</p:column>
+									-->
+							<p:column>
+							<f:facet name="header">Options</f:facet>
+							<p:commandButton id="clear"  value="CR" action="#{ticketBean.setFree(ticket)}" ajax="true" update="table">
+							<p:tooltip for="clear" value="Clear reservation"/>
+							</p:commandButton>
+							
+							
+							</p:column>
+					
+						</p:dataTable>
+
+					</div>
+				</p:panel>
+
+
+
+
+
+			</div>
+			
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

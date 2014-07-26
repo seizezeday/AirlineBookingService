@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+
+	<display-name>abo</display-name>
+	<!-- The welcome page -->
+	<welcome-file-list>
+		<welcome-file>index.xhtml</welcome-file>
+	</welcome-file-list>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+	
+	<error-page>  
+    <error-code>500</error-code>
+    <location>/error.xhtml</location>  
+    </error-page> 
+	
+	 <!-- Login filter -->
+	
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>bionic.project.abo.filter.LoginFilter</filter-class>
+    </filter>
+    
+    <!-- Set the login filter to secure all the pages in the /secured/* path of the application  -->
+   
+   
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/Admin.xhtml</url-pattern>
+    </filter-mapping>
+
+	
+</web-app>

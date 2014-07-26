@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="WEB-INF/templates/BasicTemplate.xhtml">
+	<ui:define name="title">ABO.Search results.</ui:define>
+	<ui:define name="content">
+		<h:form id="formid">
+			<div>
+				<div
+					style="overflow: auto; max-height: 700px; height: auto; width: 1000px; margin-top: 50px;"
+					class="center stitched">
+					<div class="resultdiv">
+						<p:dataTable var="flight" value="#{flightBean.flights}"
+							scrollable="true" scrollHeight="300"
+							sortBy="#{flight.departureTime}" sortOrder="Ascending"
+							style="width:100% ! important; border:3px;"
+							emptyMessage="#{msgs.noresults}">
+							<f:facet name="header">
+								
+
+									
+									#{msgs.found} (#{flightBean.resultsQuantity})
+								
+							</f:facet>
+
+							<p:column>
+								<div style="height: 100px;">
+									<div style="float: right; width: 160px;">
+										<div>
+											<p:commandButton value="#{msgs.book}" style="width: 100%;"
+												action="#{ticketBean.bookTicket(flight)}" >
+												
+												
+												
+												</p:commandButton>
+
+										</div>
+
+										<div>
+											<h:outputText value="#{flight.price}$ #{msgs.foroneticket}">
+											
+											</h:outputText>
+										</div>
+									</div>
+									<div>
+										<div style="overflow:visible;">
+											<div style="float: left; width: 160px; height: auto;" >
+												<h:outputText value="#{flight.airCompany}" />
+											</div>
+											<div style="float: left; width: 100px; margin-left: 10px;">
+												<h:outputText value="#{flight.flightnumber}" />
+											</div>
+
+											<!-- Departure place and time -->
+											<div class="container" style="float: left; margin-left: 50px">
+												<div class="place">
+													<h:outputText value="#{flight.departurePoint}" />
+												</div>
+												<div class="time">
+													<h:outputText value="#{flight.departureTime}">
+														<f:convertDateTime pattern="HH:mm" timeZone="GMT+3"
+															locale="en" />
+													</h:outputText>
+												</div>
+												<div class="date">
+													<h:outputText value="#{flight.departureTime}">
+														<f:convertDateTime pattern="dd MMMM yyyy" timeZone="GMT+3"
+															locale="en" />
+													</h:outputText>
+												</div>
+											</div>
+
+											<!-- Arrow -->
+											<div style="float: left; margin-left: 50px;">----></div>
+
+											<!-- Arrival place and time -->
+											<div class="container" style="float: left; margin-left: 50px">
+												<div class="place">
+													<h:outputText value="#{flight.destination}" />
+												</div>
+												<div class="time">
+													<h:outputText value="#{flight.arrivalTime}">
+														<f:convertDateTime pattern="HH:mm" timeZone="GMT+3"
+															locale="en" />
+													</h:outputText>
+												</div>
+												<div class="date">
+													<h:outputText value="#{flight.arrivalTime}">
+														<f:convertDateTime pattern="dd MMMM yyyy" timeZone="GMT+3"
+															locale="en" />
+													</h:outputText>
+												</div>
+											</div>
+
+
+										</div>
+										<div></div>
+
+									</div>
+								</div>
+							</p:column>
+						</p:dataTable>
+					</div>
+				</div>
+				<div class="stitched back-button">
+					<p:button value="#{msgs.anotherSearch}" outcome="index"></p:button>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
+

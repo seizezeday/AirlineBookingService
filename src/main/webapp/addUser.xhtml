@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="WEB-INF/templates/BasicTemplate.xhtml">
+	<ui:define name="title">Add user</ui:define>
+	<ui:define name="content">
+	<h:form id="formid">
+	  
+		<div class="center" style="width: 600px;">
+			<p:panelGrid columns="2" columnClasses="forty-percent, sixty-percent">
+				<f:facet name="header">#{msgs.create}</f:facet>
+				
+				<h:outputText value="#{msgs.name}"/>
+				<p:inputText value="#{userBean.name}"></p:inputText>
+				
+				
+				<h:outputText value="#{msgs.login}"/>
+				<p:inputText value="#{userBean.login}"/>
+				
+				<h:outputText value="#{msgs.password}"/>
+				<p:inputText value="#{userBean.password}"/>
+				
+				<h:outputText value="#{msgs.password}"/>
+				<p:selectOneMenu value="#{userBean.role}" styleClass="addmenu" panelStyleClass="addpanel">Role: 
+					<f:selectItems value="#{userBean.roles}" />
+				</p:selectOneMenu>
+				
+				<h:outputText value="#{msgs.status}"/>
+				<p:selectOneMenu value="#{userBean.status}" style="width: 200px;"> 
+					<f:selectItems value="#{userBean.statuses}" />
+				</p:selectOneMenu>
+
+				<f:facet name="footer">
+					<p:commandButton value="#{msgs.cancel1}" action="so"/>
+					<p:commandButton value="#{msgs.add}" action="#{userBean.createUser}" />
+					
+				</f:facet>
+			</p:panelGrid>
+
+		</div>
+
+	</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>

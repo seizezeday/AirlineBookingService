@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="WEB-INF/templates/BasicTemplate.xhtml">
+
+	<ui:define name="title">ABO.Book Tickets.</ui:define>
+	<ui:define name="content">
+		<div class="center stitched" style="width: 600px;">
+			<h:form id="formid">
+			<p:growl id="bookgrowl" sticky="true"/>
+				
+				<p:panelGrid columns="2"  style="width: 100%;">
+					<f:facet name="header">
+						
+						<p:outputLabel>#{msgs.htext} #{ticketBean.flightnumber} </p:outputLabel>
+						
+						</f:facet>
+						
+						<h:outputText value="#{msgs.bdeparture}"></h:outputText>
+						<h:outputText value="#{ticketBean.departurePoint}"></h:outputText>
+						<h:outputText value="#{msgs.bdestination}"></h:outputText>
+						<h:outputText value="#{ticketBean.destination}"/>
+						<h:outputText value="#{msgs.time}"/>
+						<h:outputText value="#{ticketBean.departureTime}"> 
+						<f:convertDateTime pattern="dd-MMMM-yyyy HH:mm" timeZone="GMT+3"></f:convertDateTime>
+						</h:outputText>
+					
+
+					<p:outputLabel value="#{msgs.name}" />
+					<p:inputTextarea rows="2" value="#{ticketBean.ownerName}" required="true" requiredMessage="#{msgs.fullname}"/>
+					<p:outputLabel value="#{msgs.id}" />
+					<p:inputText value="#{ticketBean.ownerId}" required="true" requiredMessage="#{msgs.identity}" />
+					<p:outputLabel value="#{msgs.email}" />
+					<p:inputText value="#{ticketBean.email}" required="true" validatorMessage="#{msgs.veremail}">
+					<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+					</p:inputText>
+					
+					<p:outputLabel value="#{msgs.amount}" />
+					<h:outputText value="#{ticketBean.amount}"/>
+					<p:outputLabel value="#{msgs.tprice}" />
+					<h:outputText value="#{ticketBean.totalPrice}">
+					<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</h:outputText>
+					
+					
+					
+
+					<f:facet name="footer">
+						<div>
+							<div style="float: right">
+								<p:commandButton value="#{msgs.book}" action="#{ticketBean.submitBooking}"
+								
+									onerror="bookgrowl" >
+									<p:confirm header="#{msgs.confirmation}" message="#{msgs.conf}"
+										icon="ui-icon-alert" >
+										
+										
+										</p:confirm>
+									
+									</p:commandButton>
+									<p:confirmDialog global="true" showEffect="fade"
+									hideEffect="explode">
+									<p:commandButton value="#{msgs.yes}" type="button"
+										styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+									<p:commandButton value="#{msgs.no}" type="button"
+										styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+								</p:confirmDialog>
+									
+									
+							</div>
+							<div style="float: left">
+								<p:button value="#{msgs.cancel1}" outcome="searchResults?faces-redirect=true"/>
+							</div>
+						</div>
+					</f:facet>
+
+				</p:panelGrid>
+				
+				<!--  
+				<p:dialog header="You have booked tickets" widgetVar="dlg" modal="true">
+					<p:button value="Ok" onclick="PF('dlg').close()" />
+				</p:dialog>
+				-->
+			</h:form>
+		</div>
+
+
+
+	</ui:define>
+</ui:composition>
+</html>

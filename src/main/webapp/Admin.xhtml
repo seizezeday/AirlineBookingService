@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="WEB-INF/templates/BasicTemplate.xhtml">
+	<ui:define name="title">ABO.Admin Page.</ui:define>
+	<ui:define name="content">
+		<h:form id="formid">
+
+			<div>
+
+				<div>
+
+					<p:commandButton value="Add Flight"
+						action="AddFlight?faces-redirect=true" />
+					<p:commandButton value="See Flights"
+						action="#{adminBean.searchFlight}" ajax="true" update="table" />
+					<p:commandButton value="Clear Table"
+						action="#{adminBean.clearTable}" update="panel" />
+					<p:commandButton value="Logout" action="#{loginBean.doLogout}" />
+				</div>
+				<p:panel id="panel">
+					<div style="max-height: auto;" scrollable="true">
+						<p:dataTable id="table"  var="flight" value="#{adminBean.flights}"
+							stickyHeader="false" sortBy="#{flight.departureTime}"
+							widgetVar="dataTable" sortOrder="Descending" scrollable="true"
+							scrollHeight="500" styleClass="fixed-size" filteredValue="#{adminBean.filteredFlights}">
+							<f:facet name="header">Found Flights  (#{adminBean.resultsQuantity})</f:facet>
+							<p:column>
+								<f:facet name="header">Flightnumber</f:facet>
+								<h:outputText value="#{flight.flightnumber}" />
+
+							</p:column>
+
+							<p:column filterBy="#{flight.airCompany}"
+								filterMatchMode="contains">
+								<f:facet name="header">Flightcompany</f:facet>
+								<h:outputText value="#{flight.airCompany}" />
+
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">Departure point</f:facet>
+
+								<h:outputText value="#{flight.departurePoint}" />
+
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">Departure Time</f:facet>
+								<h:outputText value="#{flight.departureTime}">
+									<f:convertDateTime pattern="dd-MM-yyyy HH:mm" timeZone="GMT+3"
+										locale="en" />
+								</h:outputText>
+
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">Destination point</f:facet>
+
+								<h:outputText value="#{flight.destination}" />
+
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">Arrival Time</f:facet>
+
+
+								<h:outputText value="#{flight.arrivalTime}">
+									<f:convertDateTime pattern="dd-MM-yyyy HH:mm" timeZone="GMT+3"
+										locale="en" />
+								</h:outputText>
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">Free seats</f:facet>
+
+								<h:outputText value="#{flight.freeSeats}" />
+
+							</p:column>
+
+							<p:column width="10px">
+								<f:facet name="header">Price</f:facet>
+
+								<h:outputText value="#{flight.price}" />
+
+							</p:column>
+
+
+							<p:column filterBy="#{flight.flightStatus}" headerText="Status"
+								filterMatchMode="exact">
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('dataTable').filter()" style="width:100px;">
+										<f:selectItem itemLabel="ALL" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItems value="#{flightBean.flightStatuses}" />
+
+									</p:selectOneMenu>
+								</f:facet>
+
+								<h:outputText value="#{flight.flightStatus}" />
+
+							</p:column>
+
+
+							<p:column style="width:100px;">
+								<p:growl id="message" showDetail="true" />
+								<f:facet name="header">Options</f:facet>
+								<p:commandButton value="Edit"
+									action="#{flightBean.editFlight(flight)}" style="width:100%;"/>
+								<p:commandButton value="Cancel Flight"
+									action="#{adminBean.cancelFlight(flight)}" ajax="true"
+									update="table, message"  style="width:100%;"/>
+								<p:commandButton value="Tickets"
+									action="#{ticketBean.getFlightTickets(flight.id)}" 
+									 style="width:100%;"/>
+								
+								
+								
+								
+								<p:commandButton value="Remove"
+									action="#{adminBean.removeFlight(flight)}" ajax="true"
+									update="table, message" style="width:100%;">
+									<p:confirm header="Confirmation" message="Are you sure?"
+										icon="ui-icon-alert" />
+								</p:commandButton>
+								<p:confirmDialog global="true" showEffect="fade"
+									hideEffect="explode">
+									<p:commandButton value="Yes" type="button"
+										styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+									<p:commandButton value="No" type="button"
+										styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+								</p:confirmDialog>
+
+								</p:column>
+
+						</p:dataTable>
+
+					</div>
+				</p:panel>
+
+
+
+
+
+			</div>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

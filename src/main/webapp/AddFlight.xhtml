@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="WEB-INF/templates/BasicTemplate.xhtml">
+	<ui:define name="title">ABO:AddFlight</ui:define>
+	<ui:define name="content">
+		<h:form id="formid">
+			<div>
+				<div class="center stitched" style="width: 600px; margin-top: 40px;">
+					<p:panelGrid columns="2" id="addPanel" style="width:100%" >
+						<f:facet name="header">
+					New Flight
+				</f:facet>
+						<p:outputLabel value="Flightnumber:" />
+						<p:inputText value="#{flightBean.flightnumber}" required="true" />
+
+						<p:outputLabel value="Air Company:" />
+						<p:inputText value="#{flightBean.airCompany}" required="true" />
+
+						<p:outputLabel value="Deparure Point:" />
+						<p:autoComplete id="departurePoint" value="#{flightBean.departurePoint}"
+						required="true" requiredMessage="#{msgs.rmdeparture}"
+						completeMethod="#{flightBean.completeCity}" forceSelection="true">
+						<p:tooltip for="departurePoint" value="#{msgs.tltdep}" />
+					    </p:autoComplete>
+
+						<p:outputLabel value="Destination Point" />
+						<p:autoComplete id="destination" value="#{flightBean.destination}"
+						required="true" requiredMessage="#{msgs.rmdestination}"
+						completeMethod="#{flightBean.completeCity}" forceSelection="true">
+						<p:tooltip for="destination" value="#{msgs.tltpchoose}" />
+					    </p:autoComplete>
+
+						<p:outputLabel value="Departure Time:" />
+						<p:calendar value="#{flightBean.departureTime}" pattern="MM/dd/yyyy HH:mm" required="true" />
+
+						<p:outputLabel value="Arrival Time:" />
+						<p:calendar value="#{flightBean.arrivalTime}" pattern="MM/dd/yyyy HH:mm" required="true" />
+
+						<p:outputLabel value="Free Seats:" />
+						<p:inputText value="#{flightBean.freeSeats}" required="true" />
+						<p:outputLabel value="Price:" />
+						<p:inputText value="#{flightBean.price}" required="true" />
+						<f:facet name="footer">
+							<div>
+								<p:button id="back" value="back" outcome="Admin?faces-redirect=true" type="button" />
+								<p:commandButton id="showDialogButton1" value="clear"
+									action="#{flightBean.clearFields}" update="addPanel" ajax="true"
+									immediate="true" />
+
+								<div class="centerButton">
+
+									<p:commandButton value="Submit new Flight to Timetable"
+										action="#{flightBean.addFlight}" icon="ui-icon-search">
+									</p:commandButton>
+								</div>
+							</div>
+						</f:facet>
+
+					</p:panelGrid>
+				</div>
+			</div>
+
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>
+</html>

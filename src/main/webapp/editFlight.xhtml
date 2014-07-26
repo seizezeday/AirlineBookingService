@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="WEB-INF/templates/BasicTemplate.xhtml">
+
+	<ui:define name="title">ABO.Edit Flight.</ui:define>
+	<ui:define name="content">
+		<div class="center stitched" style="width: 50%">
+		<h:form id="formid">
+			<p:panelGrid columns="2">
+			<f:facet name="header">
+			Following Flight to edit
+			</f:facet>
+			
+			<p:outputLabel value="Flight id in DB:"/>
+			<p:outputLabel value="#{flightBean.id}"/>
+			<p:outputLabel value="Flightnumber:"/>
+			<p:inputText value="#{flightBean.flightnumber}" required="true"/>
+			<p:outputLabel value="Departure point:"/>
+			<p:inputText value="#{flightBean.departurePoint}" required="true" />
+			<p:outputLabel value="Departure Time"/>
+			<p:calendar value="#{flightBean.departureTime}" pattern="MM/dd/yyyy HH:mm" required="true" />
+			<p:outputLabel value="Destination:"/>
+			<p:inputText value="#{flightBean.destination}" required="true" />
+			<p:outputLabel value="Arrival Time:"/>
+			<p:calendar value="#{flightBean.arrivalTime}" pattern="MM/dd/yyyy HH:mm" required="true" />
+			<p:outputLabel value="Price:"/>
+			<p:inputText value="#{flightBean.price}" required="true" />
+			<p:outputLabel value="Free seats:"/>
+			<p:inputText value="#{flightBean.freeSeats}" required="true" />
+			<p:outputLabel value="Flight status:"/>
+			<p:selectOneMenu value="#{flightBean.flightStatus}" required="true" >
+			<f:selectItems value="#{flightBean.flightStatuses}"/>
+			</p:selectOneMenu>
+			<f:facet name="footer">
+			<div>
+			<div style="float: right">
+			<p:commandButton value="Submit changes" action="#{flightBean.submitEdit}"></p:commandButton>
+			</div>
+			<div style="float: left">
+			<p:button value="Cancel" outcome="Admin"/>
+			</div>
+			</div>
+			</f:facet>
+			
+			 </p:panelGrid>
+			 <p:dialog header="You have save changes for the flight" widgetVar="dlg">
+			 <p:commandButton value="Ok" onclick="dlg.close()"/>
+			 </p:dialog>
+		</h:form>
+		</div>
+
+
+
+	</ui:define>
+</ui:composition>
+</html>

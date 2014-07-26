@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="#{localeChangerBean.language}" 
+   xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<f:view locale="#{localeChangerBean.locale}" contentType="text/html">
+	<h:head>
+		<title><ui:insert name="title" /></title>
+		<h:outputStylesheet library="" name="css/style.css" />
+		<!--  <link rel="shortcut icon" type="image/x-icon"  href="S:\eclipse\EEworkspace\abo\src\main\webapp\resources\images\favicon.ico"/>
+	<link href="#{resource['some.lib:images/favicon.ico']}" rel="shortcut icon" type="image/x-icon" /> -->
+		<link rel="shortcut icon"
+			href="${request.contextPath}/resources/images/favicon.ico" />
+	</h:head>
+
+	<h:body>
+	
+		<div>
+			<ui:insert name="header">
+				<ui:include src="header.xhtml" />
+			</ui:insert>
+
+			
+			<div style="position: relative; overflow: hidden;">
+			<ui:insert name="content" />
+
+			</div>
+
+			
+
+		<div style="position: relative; margin-right:10px; margin-top:10px; bottom: 50px;">
+		<ui:insert name="footer1">
+		<ui:include src="footer.xhtml" />
+		</ui:insert>
+		</div>
+		</div>
+	
+	</h:body>
+</f:view>
+
+</html>

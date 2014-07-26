@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>FOOTER</title>
+	<div style="position: fixed; bottom:1px; left:5px; z-index: -1">
+	<h:outputText value="ABO (c). v1.0" />
+</div>
+	<h:form>
+	<div class="footer">
+					<p:selectOneMenu value="#{localeChangerBean.language}" immediate="true">
+						<p:ajax event="change" update=":formid"/>
+						<f:selectItem itemValue="en" itemLabel="English" />
+						<f:selectItem itemValue="ua" itemLabel="Ukrainian" />
+						<f:selectItem itemValue="de" itemLabel="Deuch" />
+						<f:selectItem itemValue="es" itemLabel="Español" />
+					</p:selectOneMenu>
+
+					
+				</div>
+	</h:form>
+	
+</h:head>
+<h:body>
+	
+	
+	
+	
+	
+	
+		
+</h:body>
+</html>

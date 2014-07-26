@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="WEB-INF/templates/BasicTemplate.xhtml">
+	<ui:define name="title">#{msgs.ptsecurity}</ui:define>
+	<ui:define name="content">
+		<h:form id="formid">
+		
+
+			<div>
+
+				<div>
+
+					<p:commandButton value="#{msgs.adduser}"
+						action="addUser?faces-redirect=true" />
+					<p:commandButton value="#{msgs.showusers}"
+						action="#{userBean.showAllUsers}" ajax="true" update="table" />
+					<p:commandButton value="#{msgs.clear}"
+						action="#{userBean.clearTable}" update="panel" />
+					<p:commandButton value="#{msgs.logout}" action="#{loginBean.doLogout}" />
+					
+				</div>
+				<p:panel id="panel">
+					<div style="max-height: auto;" scrollable="true">
+						<p:dataTable id="table" var="user" value="#{userBean.users}"
+							stickyHeader="false" sortBy="#{user.name}" filteredValue="#{userBean.filteredUsers}"
+							widgetVar="dataTable" sortOrder="Descending" scrollable="true" 
+							scrollHeight="500" >
+							<f:facet name="header">#{msgs.foundusers}  (#{userBean.usersQuantity})</f:facet>
+							<p:column sortBy="#{user.name}">
+								<f:facet name="header">#{msgs.name}</f:facet>
+								<h:outputText value="#{user.name}" />
+
+							</p:column>
+
+							<p:column filterBy="#{user.role}" headerText="#{msgs.role}"
+								filterMatchMode="exact">
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('dataTable').filter()" style="width:100px;">
+										<f:selectItem itemLabel="ALL" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItems value="#{userBean.roles}" />
+
+									</p:selectOneMenu>
+								</f:facet>
+								
+								<h:outputText value="#{user.role}" />
+
+							</p:column>
+
+							
+							<p:column>
+								<f:facet name="header">#{msgs.login}</f:facet>
+								<h:outputText value="#{user.login}">
+							</h:outputText>
+
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">#{msgs.password}</f:facet>
+
+								<h:outputText value="#{user.password}" />
+
+							</p:column>
+
+							<p:column sortBy="#{user.registrationDate}">
+								<f:facet name="header">#{msgs.regdate}</f:facet>
+
+
+								<h:outputText value="#{user.registrationDate}" >
+									<f:convertDateTime pattern="dd-MM-yyyy HH:mm" timeZone="GMT+3"/>
+								</h:outputText>
+							</p:column>
+
+
+							<p:column filterBy="#{user.status}" headerText="#{msgs.curstatus}"
+								filterMatchMode="exact">
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('dataTable').filter()" style="width:100px;">
+										<f:selectItem itemLabel="ALL" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItems value="#{userBean.statuses}" />
+
+									</p:selectOneMenu>
+								</f:facet>
+								
+
+								<h:outputText value="#{user.status}" />
+
+							</p:column>
+							
+
+							
+
+
+
+
+							<p:column>
+								<p:growl id="message" showDetail="true" />
+								<f:facet name="header">#{msgs.options}</f:facet>
+								<p:commandButton value="#{msgs.edit}"
+									action="#{userBean.editUser(user)}" style="width:100%;"/>
+								
+								<p:commandButton value="#{msgs.remove1}"
+									action="#{userBean.removeUser(user)}" ajax="true"
+									update="table, message" style="width:100%;">
+									<p:confirm header="#{msgs.confirmation}" message="#{msgs.confirmation}"
+										icon="ui-icon-alert" />
+								</p:commandButton>
+								
+								<p:confirmDialog global="true" showEffect="fade"
+									hideEffect="explode">
+									<p:commandButton value="#{msgs.yes}" type="button"
+										styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+									<p:commandButton value="#{msgs.no}" type="button"
+										styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+								</p:confirmDialog>
+
+								<p:commandButton value="#{msgs.block}"
+									action="#{userBean.blockUser(user)}" ajax="true"
+									update="table, message" style="width:100%;"/>
+							</p:column>
+
+						</p:dataTable>
+
+					</div>
+				</p:panel>
+
+
+
+
+
+			</div>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
